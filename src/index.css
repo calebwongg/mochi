@@ -1,0 +1,70 @@
+:root {
+  /* Warm moody palette — ambient, not dark */
+  --wall-darkest: #2e221a;
+  --wall-dark: #3a2c20;
+  --wall-mid: #4a3828;
+  --wood-dark: #5a4030;
+  --wood-mid: #7a5838;
+  --wood-light: #6a4a32;
+  --wood-accent: #8b6040;
+
+  /* Warm accent tones */
+  --amber: #c4841d;
+  --burnt-orange: #b8612a;
+  --warm-gold: #d4a348;
+
+  /* Light colors */
+  --light-warm: #f5d89a;
+  --light-glow: #ffe4a1;
+  --light-bloom: #ffd97060;
+
+  /* Deep shadow */
+  --shadow-deep: #1a1410;
+
+  /* Cream / Mochi colors */
+  --cream: #f5e6d3;
+  --cream-dark: #e8d5c0;
+  --warm-white: #faf3eb;
+
+  /* Greens */
+  --green-deep: #2d4a2e;
+  --green-forest: #3a5c35;
+
+  /* Window / night */
+  --night-sky: #0f1729;
+  --night-horizon: #1a2540;
+
+  /* Blush */
+  --pink-blush: #f4a0a0;
+
+  /* Books */
+  --book-burgundy: #6b2a2a;
+  --book-green: #2a4a30;
+  --book-navy: #2a3050;
+  --book-brown: #5c3a21;
+  --book-cream: #c8b89a;
+  --book-wine: #8b3a50;
+  --book-olive: #4a5a30;
+  --book-rust: #8b4a2a;
+
+  /* Counter accent */
+  --counter-light: #f5d89a20;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: 'Quicksand', sans-serif;
+  background: var(--shadow-deep);
+  color: var(--cream);
+}
