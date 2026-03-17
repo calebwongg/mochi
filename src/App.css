@@ -1763,6 +1763,21 @@
   bottom: 26%;
 }
 
+.mochi-wrapper.at-couch {
+  left: 8%;
+  bottom: 22%;
+}
+
+.mochi-wrapper.at-counter {
+  left: 72%;
+  bottom: 32%;
+}
+
+.mochi-wrapper.at-floor {
+  left: 42%;
+  bottom: 14%;
+}
+
 /* Warm glow under Mochi */
 .mochi-ground-glow {
   position: absolute;
@@ -2134,6 +2149,379 @@
   100% { transform: translateY(20px); opacity: 0; }
 }
 
+/* ===== READING / STUDYING BOOK ===== */
+.mochi-book {
+  position: absolute;
+  right: -12px;
+  bottom: 6px;
+  width: 16px;
+  height: 12px;
+  transform: rotate(-10deg);
+  animation: book-hold 3s ease-in-out infinite;
+}
+
+.mochi-book-spine {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  background: var(--book-burgundy);
+  border-radius: 1px 0 0 1px;
+}
+
+.mochi-book-pages {
+  position: absolute;
+  left: 2px;
+  top: 0;
+  width: 14px;
+  height: 100%;
+  background: linear-gradient(90deg, #e8d8c0 0%, #f5e6d3 40%, #e8d8c0 41%, #f5e6d3 100%);
+  border-radius: 0 2px 2px 0;
+  border: 1px solid #c8b89a;
+  border-left: none;
+}
+
+@keyframes book-hold {
+  0%, 100% { transform: rotate(-10deg); }
+  50% { transform: rotate(-8deg) translateY(-1px); }
+}
+
+/* Studying head bob — leaning into the book */
+.mochi.studying-anim {
+  animation: study-focus 4s ease-in-out infinite !important;
+}
+
+.mochi.studying-anim .mochi-arm-right {
+  animation: none !important;
+  transform: rotate(-25deg) translateY(-2px);
+}
+
+.mochi.studying-anim .mochi-arm-left {
+  animation: none !important;
+  transform: rotate(15deg);
+}
+
+@keyframes study-focus {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  30% { transform: translateY(-1px) rotate(2deg); }
+  60% { transform: translateY(0) rotate(-1deg); }
+}
+
+/* Reading head scan */
+.mochi.reading {
+  animation: read-scan 5s ease-in-out infinite !important;
+}
+
+.mochi.reading .mochi-arm-right {
+  animation: none !important;
+  transform: rotate(-25deg) translateY(-2px);
+}
+
+.mochi.reading .mochi-arm-left {
+  animation: none !important;
+  transform: rotate(15deg);
+}
+
+@keyframes read-scan {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-1px) rotate(1deg); }
+  50% { transform: translateY(0) rotate(-1deg); }
+  75% { transform: translateY(-1px) rotate(0deg); }
+}
+
+/* ===== TYPING / LAPTOP ===== */
+.mochi-laptop {
+  position: absolute;
+  right: -16px;
+  bottom: 2px;
+}
+
+.mochi-laptop-screen {
+  width: 20px;
+  height: 14px;
+  background: linear-gradient(180deg, #2a3a4a 0%, #1a2a3a 100%);
+  border: 1.5px solid #5a6a7a;
+  border-bottom: none;
+  border-radius: 2px 2px 0 0;
+  box-shadow: 0 0 6px rgba(100, 180, 255, 0.15);
+  position: relative;
+}
+
+.mochi-laptop-screen::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  right: 3px;
+  height: 2px;
+  background: rgba(100, 200, 255, 0.3);
+  border-radius: 1px;
+  animation: screen-type 0.8s steps(3) infinite;
+}
+
+@keyframes screen-type {
+  0% { width: 20%; }
+  50% { width: 70%; }
+  100% { width: 40%; }
+}
+
+.mochi-laptop-base {
+  width: 24px;
+  height: 3px;
+  background: linear-gradient(180deg, #7a8a9a 0%, #5a6a7a 100%);
+  border-radius: 0 0 2px 2px;
+  margin-left: -2px;
+}
+
+.mochi.typing {
+  animation: typing-bob 0.4s ease-in-out infinite !important;
+}
+
+.mochi.typing .mochi-arm-left {
+  animation: type-arm-l 0.3s ease-in-out infinite !important;
+  transform-origin: top center;
+}
+
+.mochi.typing .mochi-arm-right {
+  animation: type-arm-r 0.3s ease-in-out infinite 0.15s !important;
+  transform-origin: top center;
+}
+
+@keyframes typing-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-1px); }
+}
+
+@keyframes type-arm-l {
+  0%, 100% { transform: rotate(10deg) translateY(0); }
+  50% { transform: rotate(12deg) translateY(1px); }
+}
+
+@keyframes type-arm-r {
+  0%, 100% { transform: rotate(-10deg) translateY(0); }
+  50% { transform: rotate(-12deg) translateY(1px); }
+}
+
+/* ===== BREWING COFFEE ===== */
+.mochi-pour-over {
+  position: absolute;
+  right: -12px;
+  bottom: 6px;
+}
+
+.pour-over-top {
+  width: 12px;
+  height: 8px;
+  background: linear-gradient(180deg, #d4c4a8 0%, #c8b89a 100%);
+  clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+  position: relative;
+}
+
+.pour-over-base {
+  width: 10px;
+  height: 6px;
+  background: linear-gradient(180deg, #8a7a6a 0%, #6a5a4a 100%);
+  border-radius: 0 0 3px 3px;
+  margin: 0 auto;
+  margin-left: 1px;
+}
+
+.pour-over-steam {
+  position: absolute;
+  top: -8px;
+  left: 2px;
+}
+
+.pour-over-steam .steam-line {
+  width: 2px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 1px;
+  display: inline-block;
+  margin: 0 1px;
+  animation: brew-steam 1.5s ease-out infinite;
+}
+
+.pour-over-steam .steam-line:nth-child(2) {
+  animation-delay: 0.5s;
+  height: 8px;
+}
+
+@keyframes brew-steam {
+  0% { transform: translateY(0) scaleX(1); opacity: 0.4; }
+  100% { transform: translateY(-10px) scaleX(1.5); opacity: 0; }
+}
+
+.mochi.brewing {
+  animation: brew-stir 2s ease-in-out infinite !important;
+}
+
+.mochi.brewing .mochi-arm-right {
+  animation: stir-arm 1s ease-in-out infinite !important;
+}
+
+.mochi.brewing .mochi-arm-left {
+  animation: none !important;
+  transform: rotate(15deg);
+}
+
+@keyframes brew-stir {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-1px); }
+}
+
+@keyframes stir-arm {
+  0%, 100% { transform: rotate(-15deg); }
+  25% { transform: rotate(-25deg) translateX(-1px); }
+  75% { transform: rotate(-5deg) translateX(1px); }
+}
+
+/* ===== NAPPING ===== */
+.mochi.napping {
+  animation: nap-breathe 3s ease-in-out infinite !important;
+}
+
+.mochi.napping .mochi-body {
+  animation: nap-body 3s ease-in-out infinite !important;
+}
+
+.mochi.napping .mochi-arm-left {
+  animation: none !important;
+  transform: rotate(5deg);
+}
+
+.mochi.napping .mochi-arm-right {
+  animation: none !important;
+  transform: rotate(-5deg);
+}
+
+@keyframes nap-breathe {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50% { transform: translateY(1px) rotate(-3deg); }
+}
+
+@keyframes nap-body {
+  0%, 100% { transform: scaleY(1) scaleX(1); }
+  50% { transform: scaleY(0.96) scaleX(1.04); }
+}
+
+.mochi-zzz {
+  position: absolute;
+  top: -10px;
+  right: -5px;
+  z-index: 25;
+}
+
+.mochi-zzz span {
+  position: absolute;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--cream);
+  opacity: 0;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+}
+
+.mochi-zzz span:nth-child(1) {
+  animation: zzz-float 3s ease-out infinite;
+  right: 0;
+  font-size: 8px;
+}
+
+.mochi-zzz span:nth-child(2) {
+  animation: zzz-float 3s ease-out infinite 1s;
+  right: 6px;
+  font-size: 10px;
+}
+
+.mochi-zzz span:nth-child(3) {
+  animation: zzz-float 3s ease-out infinite 2s;
+  right: 12px;
+  font-size: 12px;
+}
+
+@keyframes zzz-float {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+  20% { opacity: 0.8; }
+  100% { transform: translateY(-25px) rotate(15deg); opacity: 0; }
+}
+
+/* ===== SNACKING ===== */
+.mochi-cookie {
+  position: absolute;
+  right: -8px;
+  bottom: 14px;
+  width: 9px;
+  height: 9px;
+  background: radial-gradient(circle at 40% 40%, #d4a060 0%, #b8864a 100%);
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  animation: cookie-munch 1.5s ease-in-out infinite;
+}
+
+.mochi-cookie::before,
+.mochi-cookie::after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: #6a4a2a;
+  border-radius: 50%;
+}
+
+.mochi-cookie::before {
+  top: 2px;
+  left: 3px;
+}
+
+.mochi-cookie::after {
+  top: 5px;
+  left: 5px;
+}
+
+@keyframes cookie-munch {
+  0%, 60%, 100% { transform: rotate(0deg) translateY(0); }
+  30% { transform: rotate(-10deg) translateY(-4px); }
+}
+
+.mochi.snacking {
+  animation: munch-bob 0.6s ease-in-out infinite !important;
+}
+
+.mochi.snacking .mochi-arm-right {
+  animation: snack-arm 1.5s ease-in-out infinite !important;
+}
+
+.mochi.snacking .mochi-arm-left {
+  animation: none !important;
+  transform: rotate(10deg);
+}
+
+@keyframes munch-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-1px); }
+}
+
+@keyframes snack-arm {
+  0%, 60%, 100% { transform: rotate(-10deg); }
+  30% { transform: rotate(-30deg) translateY(-3px); }
+}
+
+/* Munching mouth */
+.mochi-face.mouth-munch .mochi-mouth {
+  width: 7px;
+  height: 4px;
+  background: #9a4030;
+  border: none;
+  border-radius: 50%;
+  animation: munch-mouth 0.6s ease-in-out infinite;
+}
+
+@keyframes munch-mouth {
+  0%, 100% { transform: translateX(-50%) scaleY(1); }
+  50% { transform: translateX(-50%) scaleY(0.5); }
+}
+
 /* Mochi speech bubble (with warm glow) */
 .mochi-bubble {
   position: absolute;
@@ -2332,6 +2720,80 @@
   font-weight: 600;
   color: var(--cream);
   border: 1px solid rgba(255,255,255,0.05);
+}
+
+/* Activity picker */
+.activity-picker-wrapper {
+  position: relative;
+}
+
+.activity-btn {
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.activity-btn:hover {
+  background: rgba(0,0,0,0.65);
+  border-color: rgba(196, 132, 29, 0.3);
+}
+
+.activity-btn.active {
+  background: rgba(0,0,0,0.7);
+  border-color: rgba(196, 132, 29, 0.4);
+}
+
+.activity-arrow {
+  font-size: 8px;
+  opacity: 0.5;
+  margin-left: 4px;
+}
+
+.activity-picker {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  background: rgba(30, 22, 16, 0.95);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 180px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+  animation: picker-pop 0.15s ease-out;
+  z-index: 60;
+}
+
+@keyframes picker-pop {
+  0% { opacity: 0; transform: translateY(-4px) scale(0.97); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.activity-option {
+  background: none;
+  border: none;
+  color: var(--cream);
+  font-family: 'Quicksand', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 7px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+
+.activity-option:hover {
+  background: rgba(196, 132, 29, 0.2);
+}
+
+.activity-option.current {
+  background: rgba(196, 132, 29, 0.3);
+  border-left: 2px solid var(--amber);
 }
 
 /* ===== CONTROLS ===== */

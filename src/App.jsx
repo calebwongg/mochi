@@ -13,12 +13,17 @@ import './App.css'
 
 const ACTIVITIES = [
   { id: 'studying', label: '📖 Studying...', position: 'table', eyes: 'normal', duration: [30, 60] },
-  { id: 'coffee', label: '☕ Coffee break!', position: 'table', eyes: 'happy', duration: [20, 40] },
+  { id: 'reading', label: '📚 Reading...', position: 'couch', eyes: 'focused', duration: [25, 50] },
+  { id: 'typing', label: '💻 Typing away...', position: 'table', eyes: 'focused', duration: [25, 50] },
+  { id: 'coffee', label: '☕ Coffee break!', position: 'counter', eyes: 'happy', duration: [20, 40] },
+  { id: 'brewing', label: '☕ Making coffee...', position: 'counter', eyes: 'normal', duration: [15, 30] },
   { id: 'writing', label: '✏️ Writing notes...', position: 'table', eyes: 'normal', duration: [25, 50] },
-  { id: 'stretching', label: '🙋 Stretching!', position: 'table', eyes: 'closed', duration: [10, 20] },
+  { id: 'stretching', label: '🙋 Stretching!', position: 'floor', eyes: 'closed', duration: [10, 20] },
   { id: 'window', label: '🌙 Gazing outside...', position: 'window', eyes: 'normal', duration: [20, 40] },
   { id: 'watering', label: '🌱 Watering plants...', position: 'plant', eyes: 'happy', duration: [15, 30] },
-  { id: 'vibing', label: '🎵 Vibing...', position: 'table', eyes: 'closed', duration: [25, 45] },
+  { id: 'vibing', label: '🎵 Vibing...', position: 'couch', eyes: 'closed', duration: [25, 45] },
+  { id: 'napping', label: '😴 Quick nap...', position: 'couch', eyes: 'closed', duration: [15, 30] },
+  { id: 'snacking', label: '🍪 Snack time!', position: 'counter', eyes: 'happy', duration: [15, 25] },
   { id: 'waving', label: '👋 Hey there!', position: 'table', eyes: 'happy', duration: [8, 15] },
 ]
 
@@ -279,6 +284,13 @@ export default function App() {
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
+  const handleActivityChange = (newActivity) => {
+    if (isTalking || isThinking) return
+    clearTimeout(activityTimer.current)
+    setActivity(newActivity)
+    activityTimer.current = setTimeout(cycleActivity, getRandomDuration(newActivity.duration))
+  }
+
   const handlePomodoroToggle = () => {
     if (pomodoroActive) {
       setPomodoroActive(false)
@@ -353,6 +365,8 @@ export default function App() {
       <OverlayUI
         sessionStart={sessionStart}
         activity={activity}
+        activities={ACTIVITIES}
+        onActivityChange={handleActivityChange}
         focusMode={focusMode}
         onFocusToggle={() => setFocusMode(!focusMode)}
         pomodoroActive={pomodoroActive}

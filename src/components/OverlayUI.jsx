@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 function formatTime(date) {
   return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
@@ -21,6 +21,8 @@ function formatPomodoro(seconds) {
 export default function OverlayUI({
   sessionStart,
   activity,
+  activities,
+  onActivityChange,
   focusMode,
   onFocusToggle,
   pomodoroActive,
@@ -32,13 +34,32 @@ export default function OverlayUI({
   onLogout,
 }) {
   const [now, setNow] = useState(new Date())
+  const [pickerOpen, setPickerOpen] = useState(false)
+  const pickerRef = useRef(null)
 
   useEffect(() => {
     const interval = setInterval(() => setNow(new Date()), 1000)
     return () => clearInterval(interval)
   }, [])
 
+  // Close picker on outside click
+  useEffect(() => {
+    if (!pickerOpen) return
+    const handleClick = (e) => {
+      if (pickerRef.current && !pickerRef.current.contains(e.target)) {
+        setPickerOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClick)
+    return () => document.removeEventListener('mousedown', handleClick)
+  }, [pickerOpen])
+
   const elapsed = now.getTime() - sessionStart
+
+  const handlePick = (act) => {
+    onActivityChange(act)
+    setPickerOpen(false)
+  }
 
   return (
     <div className="overlay-ui">
@@ -83,8 +104,27 @@ export default function OverlayUI({
           <span className="music-note">{'\u266A'}</span>
           lo-fi beats to study to
         </div>
-        <div className="mood-indicator">
-          {activity.label}
+        <div className="activity-picker-wrapper" ref={pickerRef}>
+          <button
+            className={`mood-indicator activity-btn${pickerOpen ? ' active' : ''}`}
+            onClick={() => setPickerOpen(!pickerOpen)}
+          >
+            {activity.label}
+            <span className="activity-arrow">{pickerOpen ? '▲' : '▼'}</span>
+          </button>
+          {pickerOpen && (
+            <div className="activity-picker">
+              {activities.map((act) => (
+                <button
+                  key={act.id}
+                  className={`activity-option${act.id === activity.id ? ' current' : ''}`}
+                  onClick={() => handlePick(act)}
+                >
+                  {act.label}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>
