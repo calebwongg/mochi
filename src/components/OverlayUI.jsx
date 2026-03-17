@@ -28,6 +28,8 @@ export default function OverlayUI({
   pomodoroPhase,
   onPomodoroToggle,
   onPomodoroReset,
+  userName,
+  onLogout,
 }) {
   const [now, setNow] = useState(new Date())
 
@@ -43,24 +45,30 @@ export default function OverlayUI({
       <div className="overlay-left">
         <div className="time-display">{formatTime(now)}</div>
         <div className="session-timer">Session: {formatSession(elapsed)}</div>
+        {userName && <div className="user-greeting">Hey, {userName.split(' ')[0]}</div>}
         <div className="controls-bar">
           <button
             className={`control-btn${focusMode ? ' active' : ''}`}
             onClick={onFocusToggle}
           >
-            {focusMode ? '\u2728 Focus' : '\u{1F440} Focus'}
+            {focusMode ? '✨ Focus' : '👀 Focus'}
           </button>
           <button
             className={`control-btn${pomodoroActive ? ' active' : ''}`}
             onClick={onPomodoroToggle}
           >
-            {pomodoroActive ? '\u23F9 Pomo' : '\u{1F345} Pomo'}
+            {pomodoroActive ? '⏹ Pomo' : '🍅 Pomo'}
           </button>
+          {onLogout && (
+            <button className="control-btn logout-btn" onClick={onLogout}>
+              👋 Leave
+            </button>
+          )}
         </div>
         {pomodoroActive && (
           <div className="pomodoro-display">
             <div className="pomodoro-phase">
-              {pomodoroPhase === 'work' ? '\u{1F4DA} Focus Time' : '\u2615 Break Time'}
+              {pomodoroPhase === 'work' ? '📚 Focus Time' : '☕ Break Time'}
             </div>
             <div className="pomodoro-time">{formatPomodoro(pomodoroTime)}</div>
             <div className="pomodoro-controls">

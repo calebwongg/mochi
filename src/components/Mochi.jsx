@@ -1,5 +1,5 @@
-export default function Mochi({ activity, bubble, isTalking }) {
-  const positionClass = isTalking
+export default function Mochi({ activity, bubble, isTalking, isThinking }) {
+  const positionClass = isTalking || isThinking
     ? ''
     : activity.position === 'window'
     ? 'at-window'
@@ -9,6 +9,8 @@ export default function Mochi({ activity, bubble, isTalking }) {
 
   const eyeState = isTalking
     ? 'eyes-happy'
+    : isThinking
+    ? 'eyes-focused'
     : activity.id === 'studying' || activity.id === 'writing'
     ? 'eyes-focused'
     : activity.eyes === 'closed'
@@ -17,12 +19,12 @@ export default function Mochi({ activity, bubble, isTalking }) {
     ? 'eyes-happy'
     : ''
 
-  const isStretching = activity.id === 'stretching' && !isTalking
-  const isVibing = activity.id === 'vibing' && !isTalking
+  const isStretching = activity.id === 'stretching' && !isTalking && !isThinking
+  const isVibing = activity.id === 'vibing' && !isTalking && !isThinking
   const isWaving = activity.id === 'waving' || isTalking
-  const isWriting = activity.id === 'writing' && !isTalking
-  const isDrinking = activity.id === 'coffee' && !isTalking
-  const isWatering = activity.id === 'watering' && !isTalking
+  const isWriting = activity.id === 'writing' && !isTalking && !isThinking
+  const isDrinking = activity.id === 'coffee' && !isTalking && !isThinking
+  const isWatering = activity.id === 'watering' && !isTalking && !isThinking
 
   return (
     <div className={`mochi-wrapper ${positionClass}`}>
@@ -31,15 +33,24 @@ export default function Mochi({ activity, bubble, isTalking }) {
 
       {/* Status text */}
       <div className="mochi-status">
-        {isTalking ? '\u{1F4AC} Chatting...' : activity.label}
+        {isThinking ? '🤔 Thinking...' : isTalking ? '💬 Chatting...' : activity.label}
       </div>
 
-      {/* Speech bubble */}
-      {bubble && <div className="mochi-bubble">{bubble}</div>}
+      {/* Speech bubble or typing indicator */}
+      {isThinking && (
+        <div className="mochi-bubble mochi-typing-bubble">
+          <div className="typing-dots">
+            <span />
+            <span />
+            <span />
+          </div>
+        </div>
+      )}
+      {bubble && !isThinking && <div className="mochi-bubble">{bubble}</div>}
 
       {/* Mochi character */}
       <div
-        className={`mochi${isStretching ? ' stretching' : ''}${isVibing ? ' vibing' : ''}`}
+        className={`mochi${isStretching ? ' stretching' : ''}${isVibing ? ' vibing' : ''}${isThinking ? ' thinking' : ''}`}
       >
         {/* Beanie */}
         <div className="mochi-beanie">
