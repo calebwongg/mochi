@@ -1,16 +1,21 @@
-# React + Vite
+# Stuart - Study Buddy Cafe
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Stuart (Mochi) is your personal study companion! Idle with Stuart while you study or go about your day. He lives in a cozy virtual cafe, keeps you company, and actually talks back with his own personality.
 
-Currently, two official plugins are available:
+## What is this?
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+A cozy ambient companion app built with React. Stuart is a little guy in a beanie who hangs out in a cafe with you. He wanders around — reading on the couch, making coffee at the bar, napping, watering plants, vibing to lo-fi. You can chat with him and he'll respond like a real friend (powered by Groq AI).
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **AI-Powered Conversations** — Stuart has a real personality. He's chill, uses casual language, and remembers what you talk about. Powered by Groq (Llama 3.3 70B).
+- **Living Companion** — Stuart idles through 13+ activities with unique animations: studying, reading, typing, brewing coffee, snacking, napping, stretching, vibing, and more. He moves around the whole cafe.
+- **Activity Picker** — Click the activity indicator to tell Stuart what to do.
+- **Cozy Cafe Scene** — Fully CSS-built cafe with parallax, day/night window, fairy lights, hanging plants, sleeping cat, candle flames, rain effects, and warm ambient vibes.
+- **Pomodoro Timer** — Built-in focus timer with work/break phases.
+- **Focus Mode** — Dims the cafe and highlights Stuart.
+- **Chat History** — Notebook-style side panel to scroll through your conversation.
+- **Firebase Auth + Firestore** (optional) — Sign in with Google for persistent memory. Stuart remembers you across sessions, tracks your relationship level, and unlocks milestones.
+- **Guest Mode** — Works without Firebase. Just hop in and hang out.
+- **Responsive** — Scales nicely from laptops to ultrawide monitors.
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
