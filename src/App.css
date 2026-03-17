@@ -57,6 +57,12 @@
   transition: filter 0.5s ease;
 }
 
+.scene-scale-wrapper {
+  position: absolute;
+  inset: 0;
+  transform-origin: center bottom;
+}
+
 /* Parallax layers */
 .parallax-bg {
   position: absolute;
@@ -543,9 +549,13 @@
   position: absolute;
   left: 3px;
   right: 3px;
+  height: 24%;
   display: flex;
   align-items: flex-end;
   gap: 1px;
+  z-index: 1;
+  padding-bottom: 6px;
+  overflow: hidden;
 }
 
 .book {
@@ -1793,6 +1803,12 @@
   height: 48px;
   position: relative;
   cursor: pointer;
+  animation: mochi-idle-bob 4s ease-in-out infinite;
+}
+
+@keyframes mochi-idle-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
 }
 
 .mochi-body {
@@ -1805,6 +1821,13 @@
   box-shadow:
     0 4px 12px rgba(0,0,0,0.3),
     0 0 20px rgba(245, 216, 154, 0.05);
+  animation: mochi-breathe 3s ease-in-out infinite;
+}
+
+@keyframes mochi-breathe {
+  0%, 100% { transform: scaleX(1) scaleY(1); }
+  40% { transform: scaleX(1.03) scaleY(0.97); }
+  60% { transform: scaleX(0.98) scaleY(1.02); }
 }
 
 /* Beanie */
@@ -1839,6 +1862,13 @@
   height: 8px;
   background: #8a4242;
   border-radius: 50%;
+  animation: pom-wiggle 4s ease-in-out infinite;
+}
+
+@keyframes pom-wiggle {
+  0%, 100% { transform: translateX(-50%) rotate(0deg); }
+  25% { transform: translateX(-50%) rotate(8deg) translateY(-1px); }
+  75% { transform: translateX(-50%) rotate(-6deg); }
 }
 
 /* Mochi face */
@@ -1858,6 +1888,12 @@
   border-radius: 50%;
   top: 4px;
   transition: all 0.3s ease;
+  animation: mochi-blink 4s ease-in-out infinite;
+}
+
+@keyframes mochi-blink {
+  0%, 42%, 46%, 100% { transform: scaleY(1); }
+  44% { transform: scaleY(0.1); }
 }
 
 .mochi-eye-left { left: 14px; }
@@ -1947,15 +1983,29 @@
 .mochi-arm-left {
   left: -5px;
   transform: rotate(10deg);
+  animation: mochi-arm-idle-l 5s ease-in-out infinite;
 }
 
 .mochi-arm-right {
   right: -5px;
   transform: rotate(-10deg);
+  animation: mochi-arm-idle-r 6s ease-in-out infinite;
+}
+
+@keyframes mochi-arm-idle-l {
+  0%, 100% { transform: rotate(10deg); }
+  30% { transform: rotate(5deg); }
+  60% { transform: rotate(15deg) translateY(-1px); }
+}
+
+@keyframes mochi-arm-idle-r {
+  0%, 100% { transform: rotate(-10deg); }
+  40% { transform: rotate(-15deg) translateY(-1px); }
+  70% { transform: rotate(-5deg); }
 }
 
 .mochi-arm-right.waving {
-  animation: wave 0.6s ease-in-out 4;
+  animation: wave 0.6s ease-in-out 4 !important;
 }
 
 @keyframes wave {
@@ -1965,18 +2015,21 @@
 
 .mochi.stretching .mochi-arm-left {
   transform: rotate(-80deg) translateY(-5px);
+  animation: none;
 }
 
 .mochi.stretching .mochi-arm-right {
   transform: rotate(80deg) translateY(-5px);
+  animation: none;
 }
 
 .mochi.stretching .mochi-body {
   transform: scaleY(1.1);
+  animation: none;
 }
 
 .mochi.vibing {
-  animation: vibe-bob 0.8s ease-in-out infinite;
+  animation: vibe-bob 0.8s ease-in-out infinite !important;
 }
 
 @keyframes vibe-bob {
@@ -2141,7 +2194,7 @@
 }
 
 .chat-container {
-  max-width: 600px;
+  max-width: 860px;
   margin: 0 auto;
   display: flex;
   gap: 10px;
@@ -2482,6 +2535,140 @@
 
   .counter-bar {
     width: 40%;
+  }
+}
+
+/* ===== LARGE SCREEN RESPONSIVE ===== */
+@media (min-width: 1600px) {
+  .overlay-ui {
+    padding: 20px 30px;
+  }
+
+  .time-display {
+    font-size: 28px;
+  }
+
+  .session-timer {
+    font-size: 14px;
+  }
+
+  .control-btn {
+    font-size: 13px;
+    padding: 6px 16px;
+  }
+
+  .now-playing,
+  .mood-indicator {
+    font-size: 14px;
+    padding: 8px 18px;
+  }
+
+  .chat-area {
+    padding: 16px 28px 20px;
+  }
+
+  .chat-container {
+    max-width: 920px;
+  }
+
+  .chat-input {
+    font-size: 16px;
+    padding: 12px 22px;
+  }
+
+  .chat-send {
+    width: 46px;
+    height: 46px;
+  }
+
+  .chat-history-btn {
+    width: 42px;
+    height: 42px;
+  }
+
+  .mochi-bubble {
+    font-size: 15px;
+    max-width: 240px;
+    padding: 10px 18px;
+  }
+
+  .your-bubble {
+    font-size: 15px;
+    max-width: 220px;
+    padding: 10px 18px;
+  }
+
+  .mochi-status {
+    font-size: 13px;
+  }
+
+  .pomodoro-time {
+    font-size: 24px;
+  }
+
+  .user-greeting {
+    font-size: 13px;
+  }
+}
+
+@media (min-width: 1920px) {
+  .overlay-ui {
+    padding: 24px 36px;
+  }
+
+  .time-display {
+    font-size: 32px;
+  }
+
+  .session-timer {
+    font-size: 15px;
+  }
+
+  .control-btn {
+    font-size: 14px;
+    padding: 7px 18px;
+    border-radius: 16px;
+  }
+
+  .now-playing,
+  .mood-indicator {
+    font-size: 15px;
+    padding: 9px 20px;
+    border-radius: 24px;
+  }
+
+  .chat-container {
+    max-width: 1000px;
+  }
+
+  .chat-input {
+    font-size: 17px;
+    padding: 14px 24px;
+    border-radius: 24px;
+  }
+
+  .chat-send {
+    width: 50px;
+    height: 50px;
+  }
+
+  .chat-history-btn {
+    width: 46px;
+    height: 46px;
+  }
+
+  .mochi-bubble {
+    font-size: 16px;
+    max-width: 280px;
+  }
+
+  .your-bubble {
+    font-size: 16px;
+    max-width: 260px;
+  }
+
+  .pomodoro-time {
+    font-size: 28px;
   }
 }
 

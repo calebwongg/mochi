@@ -116,6 +116,21 @@ export default function App() {
     loadData()
   }, [user, isGuest]) // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Scene scaling for large monitors (designed for ~1366px)
+  const [sceneScale, setSceneScale] = useState(() => {
+    const w = typeof window !== 'undefined' ? window.innerWidth : 1366
+    return Math.max(1, Math.min(1.3, 1 + (w - 1366) * 0.00022))
+  })
+
+  useEffect(() => {
+    const updateScale = () => {
+      const w = window.innerWidth
+      setSceneScale(Math.max(1, Math.min(1.3, 1 + (w - 1366) * 0.00022)))
+    }
+    window.addEventListener('resize', updateScale)
+    return () => window.removeEventListener('resize', updateScale)
+  }, [])
+
   // Parallax mouse effect
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -310,26 +325,28 @@ export default function App() {
   return (
     <div className={`app${focusMode ? ' focus-mode' : ''}`}>
       <div className="cafe-scene">
-        <CafeScene
-          bgTransform={bgTransform}
-          midTransform={midTransform}
-          fgTransform={fgTransform}
-        />
-        <Mochi
-          activity={activity}
-          bubble={mochiBubble}
-          isTalking={isTalking}
-          isThinking={isThinking}
-        />
-        {/* Your seat & bubble */}
-        <div className="your-seat" style={{ transform: midTransform }}>
-          <div className="chair-back" />
-          <div className="chair-seat" />
-          <div className="chair-legs">
-            <div className="chair-leg-el" />
-            <div className="chair-leg-el" />
+        <div className="scene-scale-wrapper" style={{ transform: `scale(${sceneScale})` }}>
+          <CafeScene
+            bgTransform={bgTransform}
+            midTransform={midTransform}
+            fgTransform={fgTransform}
+          />
+          <Mochi
+            activity={activity}
+            bubble={mochiBubble}
+            isTalking={isTalking}
+            isThinking={isThinking}
+          />
+          {/* Your seat & bubble */}
+          <div className="your-seat" style={{ transform: midTransform }}>
+            <div className="chair-back" />
+            <div className="chair-seat" />
+            <div className="chair-legs">
+              <div className="chair-leg-el" />
+              <div className="chair-leg-el" />
+            </div>
+            {userBubble && <div className="your-bubble">{userBubble}</div>}
           </div>
-          {userBubble && <div className="your-bubble">{userBubble}</div>}
         </div>
       </div>
 

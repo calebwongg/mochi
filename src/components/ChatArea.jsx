@@ -29,7 +29,7 @@ export default function ChatArea({ onSend, disabled, onHistoryToggle }) {
         <input
           className={`chat-input${disabled ? ' cooldown' : ''}`}
           type="text"
-          placeholder={disabled ? 'Mochi is thinking...' : 'Say something to Mochi...'}
+          placeholder={disabled ? 'Stuart is thinking...' : 'Say something to Stuart...'}
           value={input}
           onChange={(e) => setInput(e.target.value)}
           maxLength={200}

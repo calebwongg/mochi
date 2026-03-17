@@ -7,9 +7,10 @@ const BOOK_COLORS = [
   '#4a3040', '#2a3a2a', '#5a4a3a', '#3a2a1a',
 ]
 
-function BookShelf({ books, style }) {
+function BookShelf({ books, shelfIndex }) {
+  const topPositions = { 0: '74%', 1: '49%', 2: '24%' }
   return (
-    <div className="books" style={style}>
+    <div className={`books books-shelf-${shelfIndex}`} style={{ top: topPositions[shelfIndex] }}>
       {books.map((b, i) => (
         <div
           key={i}
@@ -282,11 +283,11 @@ export default function CafeScene({ bgTransform, midTransform, fgTransform }) {
         {/* Bookshelf */}
         <div className="bookshelf">
           <div className="shelf shelf-1" />
-          <BookShelf books={shelfBooks[0]} style={{ bottom: 'calc(24% + 6px)', left: '3px', right: '3px', position: 'absolute', display: 'flex', alignItems: 'flex-end', gap: '1px' }} />
           <div className="shelf shelf-2" />
-          <BookShelf books={shelfBooks[1]} style={{ bottom: 'calc(49% + 6px)', left: '3px', right: '3px', position: 'absolute', display: 'flex', alignItems: 'flex-end', gap: '1px' }} />
           <div className="shelf shelf-3" />
-          <BookShelf books={shelfBooks[2]} style={{ bottom: 'calc(74% + 6px)', left: '3px', right: '3px', position: 'absolute', display: 'flex', alignItems: 'flex-end', gap: '1px' }} />
+          <BookShelf books={shelfBooks[0]} shelfIndex={0} />
+          <BookShelf books={shelfBooks[1]} shelfIndex={1} />
+          <BookShelf books={shelfBooks[2]} shelfIndex={2} />
         </div>
 
         {/* Chalkboard */}
