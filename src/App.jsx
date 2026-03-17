@@ -37,7 +37,7 @@ function getRandomDuration(range) {
 }
 
 export default function App() {
-  const { user, loading: authLoading, signInWithGoogle, logout } = useAuth()
+  const { user, loading: authLoading, signInWithGoogle, logout, firebaseReady } = useAuth()
   const [isGuest, setIsGuest] = useState(false)
   const firestore = useFirestore(isGuest ? null : user)
 
@@ -330,6 +330,7 @@ export default function App() {
         onSignIn={signInWithGoogle}
         onGuest={() => setIsGuest(true)}
         loading={false}
+        firebaseReady={firebaseReady}
       />
     )
   }

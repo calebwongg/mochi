@@ -13,10 +13,11 @@ import {
   limit,
   getDocs,
 } from 'firebase/firestore'
-import { db } from '../firebase'
+import { db, isConfigured } from '../firebase'
 
 // Initialize or update user document on sign-in
 async function initUserDoc(uid, displayName, photoURL) {
+  if (!db) return { mochiRelationship: 0, visitCount: 1, totalSessionTime: 0 }
   const userRef = doc(db, 'users', uid)
   const snap = await getDoc(userRef)
 
@@ -51,6 +52,7 @@ async function initUserDoc(uid, displayName, photoURL) {
 
 // Load Mochi state
 async function loadMochiState(uid) {
+  if (!db) return { currentMood: 'happy', knownFacts: [], milestones: [], currentActivity: 'studying' }
   const ref = doc(db, 'users', uid, 'mochiState', 'current')
   const snap = await getDoc(ref)
   if (snap.exists()) return snap.data()
@@ -59,6 +61,7 @@ async function loadMochiState(uid) {
 
 // Load latest conversation summary
 async function loadLatestConversation(uid) {
+  if (!db) return { messages: [], summary: '' }
   const convRef = collection(db, 'users', uid, 'conversations')
   const q = query(convRef, orderBy('createdAt', 'desc'), limit(1))
   const snap = await getDocs(q)
@@ -68,6 +71,7 @@ async function loadLatestConversation(uid) {
 
 // Save a conversation
 async function saveConversation(uid, messages, summary) {
+  if (!db) return
   const convRef = collection(db, 'users', uid, 'conversations')
   await addDoc(convRef, {
     messages,
@@ -78,12 +82,14 @@ async function saveConversation(uid, messages, summary) {
 
 // Update mochi state
 async function updateMochiState(uid, updates) {
+  if (!db) return
   const ref = doc(db, 'users', uid, 'mochiState', 'current')
   await updateDoc(ref, updates)
 }
 
 // Update user stats
 async function updateUserStats(uid, updates) {
+  if (!db) return
   const userRef = doc(db, 'users', uid)
   await updateDoc(userRef, updates)
 }
@@ -94,7 +100,7 @@ export function useFirestore(user) {
 
   // Session time tracking — save every 5 minutes and on unload
   const saveSessionTime = useCallback(() => {
-    if (!user) return
+    if (!user || !db) return
     const now = Date.now()
     const elapsed = Math.floor((now - lastSaveRef.current) / 60000) // minutes
     if (elapsed < 1) return
@@ -105,7 +111,7 @@ export function useFirestore(user) {
   }, [user])
 
   useEffect(() => {
-    if (!user) return
+    if (!user || !db) return
 
     const interval = setInterval(saveSessionTime, 5 * 60 * 1000)
 
@@ -121,7 +127,7 @@ export function useFirestore(user) {
 
   // Increment relationship score (+1 per 10 min)
   useEffect(() => {
-    if (!user) return
+    if (!user || !db) return
     const interval = setInterval(() => {
       updateUserStats(user.uid, {
         mochiRelationship: increment(1),

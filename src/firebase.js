@@ -11,7 +11,21 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
 }
 
-const app = initializeApp(firebaseConfig)
-export const auth = getAuth(app)
-export const db = getFirestore(app)
-export const googleProvider = new GoogleAuthProvider()
+const isConfigured = firebaseConfig.apiKey && firebaseConfig.apiKey !== 'your_key_here'
+
+let auth = null
+let db = null
+let googleProvider = null
+
+if (isConfigured) {
+  try {
+    const app = initializeApp(firebaseConfig)
+    auth = getAuth(app)
+    db = getFirestore(app)
+    googleProvider = new GoogleAuthProvider()
+  } catch (err) {
+    console.error('Firebase init failed:', err)
+  }
+}
+
+export { auth, db, googleProvider, isConfigured }
