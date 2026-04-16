@@ -18,7 +18,7 @@ export default function Window() {
 
   const isNight = timeOfDay === 'night' || timeOfDay === 'evening'
 
-  // More raindrops, varied sizes
+  // More raindrops, varied sizesdsadsadsadsadsa
   const raindrops = useMemo(() => {
     return Array.from({ length: 60 }, (_, i) => ({
       id: i,
