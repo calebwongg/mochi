@@ -30,7 +30,7 @@ export default function Window() {
     }))
   }, [])
 
-  // Sliding drops on glassfadasdasdasdasda
+  // Sliding drops on glassfadasdasdasdasdadsadadsaddasdads
   const slidingDrops = useMemo(() => {
     return Array.from({ length: 10 }, (_, i) => ({
       id: i,
